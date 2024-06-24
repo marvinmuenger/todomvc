@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TodosService } from '../todos.service';
+import { TodosStore } from '../todos.store';
 
 @Component({
   standalone: true,
@@ -9,13 +9,13 @@ import { TodosService } from '../todos.service';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
-  private todosService = inject(TodosService);
+  readonly store = inject(TodosStore);
 
   title = '';
 
   addTodo() {
     if (this.title) {
-      this.todosService.addItem(this.title);
+      this.store.addItem(this.title);
 
       // Reset title to clear input field.
       this.title = '';
