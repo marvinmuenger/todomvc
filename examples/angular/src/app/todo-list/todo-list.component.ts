@@ -13,17 +13,21 @@ export class TodoListComponent {
   private location = inject(Location);
   private todosService = inject(TodosService);
 
-  get todos(): Todo[] {
+  get todos() {
     const filter = this.location.path().split('/')[1] || 'all';
     return this.todosService.getItems(filter);
   }
 
-  get activeTodos(): Todo[] {
+  get activeTodos() {
     return this.todosService.getItems('active');
   }
 
   removeTodo(todo: Todo): void {
     this.todosService.removeItem(todo);
+  }
+
+  toggleTodo(todo: Todo): void {
+    this.todosService.completeItem(todo);
   }
 
   toggleAll(e: Event) {
